@@ -13,6 +13,75 @@
     </ul>
   </div>
 
+  <div class="rounded-xl border border-cyan-900/70 bg-cyan-950/20 p-4 mt-2">
+    <div class="text-xs uppercase tracking-[0.3em] text-cyan-500 mb-4">Целевая схема БД</div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+
+      <div class="rounded-lg border border-cyan-800/60 overflow-hidden">
+        <div class="bg-cyan-900/50 px-3 py-1.5 text-cyan-300 font-bold text-sm tracking-wide">agents</div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-800/60">
+          <tr class="bg-gray-900/50"><td class="px-3 py-1 text-gray-400">id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-cyan-600 text-[10px]">PK</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">codename</td><td class="px-3 py-1 text-right"><span class="text-yellow-300">VARCHAR</span> <span class="text-red-400/70 text-[10px]">UQ</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">level</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-gray-600 text-[10px]">1..10</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">active</td><td class="px-3 py-1 text-right"><span class="text-violet-400">BOOLEAN</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">created_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">updated_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rounded-lg border border-cyan-800/60 overflow-hidden">
+        <div class="bg-cyan-900/50 px-3 py-1.5 text-cyan-300 font-bold text-sm tracking-wide">missions</div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-800/60">
+          <tr class="bg-gray-900/50"><td class="px-3 py-1 text-gray-400">id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-cyan-600 text-[10px]">PK</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">agent_id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-yellow-500/70 text-[10px]">FK → agents</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">title</td><td class="px-3 py-1 text-right"><span class="text-yellow-300">VARCHAR</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">status</td><td class="px-3 py-1 text-right"><span class="text-yellow-300">VARCHAR</span> <span class="text-gray-600 text-[10px]">enum</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">created_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">updated_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rounded-lg border border-cyan-800/60 overflow-hidden">
+        <div class="bg-cyan-900/50 px-3 py-1.5 text-cyan-300 font-bold text-sm tracking-wide">agent_skills</div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-800/60">
+          <tr class="bg-gray-900/50"><td class="px-3 py-1 text-gray-400">id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-cyan-600 text-[10px]">PK</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">agent_id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-yellow-500/70 text-[10px]">FK → agents</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">skill_id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-yellow-500/70 text-[10px]">FK → skills</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">created_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">updated_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          </tbody>
+        </table>
+        <div class="px-3 py-1 text-[10px] text-red-400/70 border-t border-gray-800/60">UQ: [agent_id, skill_id]</div>
+      </div>
+
+      <div class="rounded-lg border border-cyan-800/60 overflow-hidden">
+        <div class="bg-cyan-900/50 px-3 py-1.5 text-cyan-300 font-bold text-sm tracking-wide">skills</div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-800/60">
+          <tr class="bg-gray-900/50"><td class="px-3 py-1 text-gray-400">id</td><td class="px-3 py-1 text-right"><span class="text-amber-400">INTEGER</span> <span class="text-cyan-600 text-[10px]">PK</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">name</td><td class="px-3 py-1 text-right"><span class="text-yellow-300">VARCHAR</span> <span class="text-red-400/70 text-[10px]">UQ</span></td></tr>
+          <tr><td class="px-3 py-1 text-white">category</td><td class="px-3 py-1 text-right"><span class="text-yellow-300">VARCHAR</span> <span class="text-gray-600 text-[10px]">null</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">created_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          <tr class="bg-gray-900/30"><td class="px-3 py-1 text-gray-500">updated_at</td><td class="px-3 py-1 text-right"><span class="text-teal-400/70">TIMESTAMP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-[11px] text-gray-500">
+      <span>agents <span class="text-cyan-600">1</span> → <span class="text-cyan-600">N</span> missions</span>
+      <span>agents <span class="text-cyan-600">1</span> → <span class="text-cyan-600">N</span> agent_skills</span>
+      <span>skills <span class="text-cyan-600">1</span> → <span class="text-cyan-600">N</span> agent_skills</span>
+    </div>
+  </div>
+
   <div>
     <div class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Этапы восстановления</div>
     <ol class="list-decimal space-y-3 pl-5 marker:text-cyan-400">
@@ -49,6 +118,5 @@
         <code class="rounded bg-gray-950 px-1.5 py-0.5 text-green-300">[agent_id, skill_id]</code>.
       </li>
     </ol>
-
-
+  </div>
 </section>

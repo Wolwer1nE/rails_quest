@@ -1,5 +1,5 @@
         <%# ── Test badge ── %>
-        <% if results.any? %>
+        <% if results&.any? %>
           <div class="text-xs flex gap-2 items-center">
             <span class="<%= results['failures'].to_i == 0 ? 'text-green-400' : 'text-red-400' %>">
               ● <%= t("quests.index.tests_passed", passed: results["passed"].to_i, total: results["total"].to_i) %>
