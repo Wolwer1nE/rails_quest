@@ -3,7 +3,7 @@ class CreateMissions < ActiveRecord::Migration[8.1]
     create_table :missions do |t|
       t.string :title
       t.string :status
-      t.references :agent, null: false, foreign_key: true
+      t.references :agent, null: false, foreign_key: true, type: :integer
 
       t.timestamps
     end
