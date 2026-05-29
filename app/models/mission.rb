@@ -4,7 +4,7 @@ class Mission < ApplicationRecord
   validates :title, presence: true
   validates :status, presence: true
 
-  VALID_STATUSES = ['pending', 'in_progress', 'completed', 'failed'].freeze
+  VALID_STATUSES = ['pending', 'in_progress', 'completed', 'failed','assigned'].freeze
 
   def status=(value)
     if value.present? && !VALID_STATUSES.include?(value)
