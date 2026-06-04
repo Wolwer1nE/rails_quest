@@ -9,34 +9,49 @@ class Quest3AccessGateController < ApplicationController
 
 
   # Register callbacks here.
+  before_action :calculate_clearance, only: [:clearance]
+  after_action :append_inform, only: [:clearance]
 
+  before_action :take_token, only: [:granted]
+  after_action :token_checked, only: [:granted]
 
   def ping
-    render plain: ""
+    render plain: "ACCESSGATE PING OK"
   end
 
   def scan
-    render plain: ""
+    agent = params[:agent]
+    sector = params[:sector]
+    render plain: "SCAN RESULT: #{agent} -> sector #{sector}"
   end
 
   def power
-    render plain: ""
+    current = params[:current].to_i
+    boost = params[:boost].to_i
+    result = (current + boost).to_s
+    render plain: "POWER TOTAL: #{result}"
   end
 
   def stale_logs
-    render plain: ""
+    count = params[:count].to_i
+    render plain: "STALE LOGS CLEARED: #{count}"
   end
 
   def clearance
-    render plain: ""
+     render plain: "CLEARANCE TOTAL: #{@clearance_total}"
   end
 
   def verify
-    render plain: ""
+    token = params[:token]
+    if token.start_with?("alpha")
+      redirect_to "/access_gate/granted?token=#{token}"
+    else
+       redirect_to "/access_gate/denied?token=#{token}"
+    end
   end
 
   def granted
-    render plain: ""
+    render plain: "TOKEN ACCEPTED: #{@token}"
   end
 
   def denied
@@ -44,6 +59,24 @@ class Quest3AccessGateController < ApplicationController
   end
 
   private
+
+  def calculate_clearance
+    level = params[:level].to_i
+    boost = params[:boost].to_i
+    @clearance_total = (level + boost).to_s
+  end
+
+  def append_inform
+    response.set_header("X-Access-Gate-Trace", "CLEAREANCE_GRANTED")
+  end
+
+  def take_token
+    @token = params[:token]
+  end
+
+  def token_checked
+    response.set_header("X-Access-Gate-Trace", "token_checked")
+  end
 
 
   # Implement callbacks here
